@@ -9,9 +9,8 @@
  */
 namespace Es\View\Listener;
 
-use Es\Http\ServerInterface;
 use Es\Http\Stream;
-use Es\Services\Provider;
+use Es\Server\ServerTrait;
 use Es\System\SystemEvent;
 use Es\View\ViewTrait;
 
@@ -20,27 +19,7 @@ use Es\View\ViewTrait;
  */
 class RendererListener
 {
-    use ViewTrait;
-
-    /**
-     * Sets the server.
-     *
-     * @param \Es\Http\ServerInterface $server The server
-     */
-    public function setServer(ServerInterface $server)
-    {
-        Provider::getServices()->set('Server', $server);
-    }
-
-    /**
-     * Gets the server.
-     *
-     * @return \Es\Http\ServerInterface The server
-     */
-    public function getServer()
-    {
-        return Provider::getServices()->get('Server');
-    }
+    use ServerTrait, ViewTrait;
 
     /**
      * Renders the view.

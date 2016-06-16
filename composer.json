@@ -9,15 +9,14 @@
     ],
     "require": {
         "php": "^5.5 || ^7.0",
-        "psr/http-message": "^1.0",
         "easy-system/es-component": "*",
         "easy-system/es-exception": "*",
         "easy-system/es-container": "*",
-        "easy-system/es-http": "*",
         "easy-system/es-services": "*",
         "easy-system/es-events": "*",
         "easy-system/es-system": "*",
         "easy-system/es-modules": "*",
+        "easy-system/es-server": "*",
         "easy-system/es-mvc": "*"
     },
     "autoload": {

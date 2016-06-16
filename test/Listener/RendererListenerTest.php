@@ -10,9 +10,7 @@
 namespace Es\View\Test\Listener;
 
 use Es\Http\Response;
-use Es\Http\Server;
-use Es\Services\Provider;
-use Es\Services\Services;
+use Es\Server\Server;
 use Es\System\SystemEvent;
 use Es\View\Listener\RendererListener;
 use Es\View\View;
@@ -21,28 +19,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class RendererListenerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGetServer()
-    {
-        $server   = new Server();
-        $services = new Services();
-        $services->set('Server', $server);
-
-        Provider::setServices($services);
-        $listener = new RendererListener();
-        $this->assertSame($server, $listener->getServer());
-    }
-
-    public function testSetServer()
-    {
-        $services = new Services();
-        Provider::setServices($services);
-
-        $server   = new Server();
-        $listener = new RendererListener();
-        $listener->setServer($server);
-        $this->assertSame($server, $services->get('Server'));
-    }
-
     public function testInvoke()
     {
         $result = 'Lorem ipsum dolor sit amet';

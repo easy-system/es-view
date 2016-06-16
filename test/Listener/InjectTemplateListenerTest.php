@@ -9,40 +9,16 @@
  */
 namespace Es\View\Test\Listener;
 
-use Es\Http\Server;
-use Es\Services\Services;
+use Es\Server\Server;
 use Es\System\SystemEvent;
 use Es\View\Listener\InjectTemplateListener;
 use Es\View\ViewModel;
-use Es\Services\Provider;
 
 class InjectTemplateListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         require_once 'FakeController.php';
-    }
-
-    public function testGetServer()
-    {
-        $server   = new Server();
-        $services = new Services();
-        $services->set('Server', $server);
-        Provider::setServices($services);
-
-        $listener = new InjectTemplateListener();
-        $this->assertSame($server, $listener->getServer());
-    }
-
-    public function testSetServer()
-    {
-        $services = new Services();
-        Provider::setServices($services);
-
-        $server   = new Server();
-        $listener = new InjectTemplateListener();
-        $listener->setServer($server);
-        $this->assertSame($server, $services->get('Server'));
     }
 
     public function testInvokeDoesNothingIfDispatchingResultIsNotViewModel()
@@ -118,7 +94,9 @@ class InjectTemplateListenerTest extends \PHPUnit_Framework_TestCase
         $event->setResult(SystemEvent::DISPATCH, $model);
         $event->setContext(new \stdClass());
 
+        $server   = new Server();
         $listener = new InjectTemplateListener();
+        $listener->setServer($server);
         $this->setExpectedException('UnexpectedValueException');
 
         $listener($event);
