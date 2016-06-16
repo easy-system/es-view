@@ -37,33 +37,4 @@ class ClearOutputListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($expected, (string) $result->getBody());
     }
-
-    public function testInvokeDoesNothingIfResultOfEventIsNotResponse()
-    {
-        $event = new SystemEvent();
-        $event->setResult(SystemEvent::FINISH, "foo\n\n bar");
-
-        $listener = new ClearOutputListener();
-        $listener($event);
-
-        $this->assertSame("foo\n\n bar", $event->getResult(SystemEvent::FINISH));
-    }
-
-    public function testInvokeDoesNothingIfContentTypeIsNotTextHtml()
-    {
-        $source = "Lorem ipsum\n\n dolor sit amet,\n\n\n consectetur adipiscing elit";
-
-        $body     = Stream::make($source);
-        $headers  = ['Content-type' => ['something']];
-        $response = new Response(200, $body, $headers);
-
-        $event = new SystemEvent();
-        $event->setResult(SystemEvent::FINISH, $response);
-
-        $listener = new ClearOutputListener();
-        $listener($event);
-
-        $result = $event->getResult(SystemEvent::FINISH);
-        $this->assertSame($source, (string) $result->getBody());
-    }
 }

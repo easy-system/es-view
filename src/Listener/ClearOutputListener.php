@@ -27,16 +27,14 @@ class ClearOutputListener
     {
         $result = $event->getResult(SystemEvent::FINISH);
 
-        if (! $result instanceof ResponseInterface) {
-            return;
-        }
-
-        $contentType = $result->getHeaderLine('Content-Type');
-        if (0 === strpos($contentType, 'text/html')) {
-            $body    = (string) $result->getBody();
-            $cleaned = preg_replace("#(\s)*(\n)+(\r)*#", "\n", $body);
-            $stream  = Stream::make($cleaned);
-            $event->setResult(SystemEvent::FINISH, $result->withBody($stream));
+        if ($result instanceof ResponseInterface) {
+            $contentType = $result->getHeaderLine('Content-Type');
+            if (0 === strpos($contentType, 'text/html')) {
+                $body    = (string) $result->getBody();
+                $cleaned = preg_replace("#(\s)*(\n)+(\r)*#", "\n", $body);
+                $stream  = Stream::make($cleaned);
+                $event->setResult(SystemEvent::FINISH, $result->withBody($stream));
+            }
         }
     }
 }
