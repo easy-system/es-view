@@ -79,9 +79,9 @@ class Resolver
      */
     public function registerModulePath($moduleName, $path, $addPrefix = true)
     {
-        $normalized = static::normalizePath($path) . DIRECTORY_SEPARATOR;
+        $normalized = static::normalizePath($path) . PHP_DS;
         if ($addPrefix) {
-            $normalized .= static::DEFAULT_PREFIX . DIRECTORY_SEPARATOR;
+            $normalized .= static::DEFAULT_PREFIX . PHP_DS;
         }
         $this->modulesMap[static::normalizeModule($moduleName)] = $normalized;
 
@@ -254,7 +254,7 @@ class Resolver
         if (! isset($this->modulesMap[$module])) {
             return false;
         }
-        $tpl   = str_replace('/', DIRECTORY_SEPARATOR, $template);
+        $tpl   = str_replace('/', PHP_DS, $template);
         $found = glob($this->modulesMap[$module] . $tpl . '.*');
         if (! $found) {
             return false;
@@ -299,8 +299,8 @@ class Resolver
      */
     protected static function normalizePath($path)
     {
-        $normalized = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, (string) $path);
+        $normalized = str_replace(['\\', '/'], PHP_DS, (string) $path);
 
-        return rtrim($normalized, DIRECTORY_SEPARATOR);
+        return rtrim($normalized, PHP_DS);
     }
 }

@@ -23,24 +23,24 @@ class ResolverTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $files = __DIR__ . DIRECTORY_SEPARATOR . 'files';
+        $files = __DIR__ . PHP_DS . 'files';
 
-        $this->fooDir = $files . DIRECTORY_SEPARATOR . 'Foo';
-        $this->barDir = $files . DIRECTORY_SEPARATOR . 'Bar';
+        $this->fooDir = $files . PHP_DS . 'Foo';
+        $this->barDir = $files . PHP_DS . 'Bar';
 
-        $this->fooIndex = $this->fooDir . DIRECTORY_SEPARATOR
-                        . Resolver::DEFAULT_PREFIX . DIRECTORY_SEPARATOR
-                        . 'index' . DIRECTORY_SEPARATOR
+        $this->fooIndex = $this->fooDir . PHP_DS
+                        . Resolver::DEFAULT_PREFIX . PHP_DS
+                        . 'index' . PHP_DS
                         . 'index.phtml';
 
-        $this->barIndex = $this->barDir . DIRECTORY_SEPARATOR
-                        . Resolver::DEFAULT_PREFIX . DIRECTORY_SEPARATOR
-                        . 'index' . DIRECTORY_SEPARATOR
+        $this->barIndex = $this->barDir . PHP_DS
+                        . Resolver::DEFAULT_PREFIX . PHP_DS
+                        . 'index' . PHP_DS
                         . 'index.md';
 
-        $this->barBar = $this->barDir . DIRECTORY_SEPARATOR
-                      . Resolver::DEFAULT_PREFIX . DIRECTORY_SEPARATOR
-                      . 'bar' . DIRECTORY_SEPARATOR
+        $this->barBar = $this->barDir . PHP_DS
+                      . Resolver::DEFAULT_PREFIX . PHP_DS
+                      . 'bar' . PHP_DS
                       . 'bar.twig';
     }
 
@@ -68,9 +68,9 @@ class ResolverTest extends \PHPUnit_Framework_TestCase
         $resolver = new Resolver();
         $return   = $resolver->registerModulePath('Foo', '/foo', true);
         $this->assertSame($return, $resolver);
-        $expected = DIRECTORY_SEPARATOR . 'foo'
-                  . DIRECTORY_SEPARATOR . Resolver::DEFAULT_PREFIX
-                  . DIRECTORY_SEPARATOR;
+        $expected = PHP_DS . 'foo'
+                  . PHP_DS . Resolver::DEFAULT_PREFIX
+                  . PHP_DS;
 
         $reflection = new ReflectionProperty($resolver, 'modulesMap');
         $reflection->setAccessible(true);
@@ -84,7 +84,7 @@ class ResolverTest extends \PHPUnit_Framework_TestCase
         $resolver = new Resolver();
         $return   = $resolver->registerModulePath('Foo', '/foo', false);
         $this->assertSame($return, $resolver);
-        $expected = DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR;
+        $expected = PHP_DS . 'foo' . PHP_DS;
 
         $reflection = new ReflectionProperty($resolver, 'modulesMap');
         $reflection->setAccessible(true);
@@ -97,14 +97,14 @@ class ResolverTest extends \PHPUnit_Framework_TestCase
     {
         $resolver = new Resolver();
         $map      = [
-            'FooSome'      => DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR,
-            'BarSomeOther' => DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR,
-            'Baz\Example'  => DIRECTORY_SEPARATOR . 'baz' . DIRECTORY_SEPARATOR,
+            'FooSome'      => PHP_DS . 'foo' . PHP_DS,
+            'BarSomeOther' => PHP_DS . 'bar' . PHP_DS,
+            'Baz\Example'  => PHP_DS . 'baz' . PHP_DS,
         ];
         $expected = [
-            'foo-some'       => DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR,
-            'bar-some-other' => DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR,
-            'baz/example'    => DIRECTORY_SEPARATOR . 'baz' . DIRECTORY_SEPARATOR,
+            'foo-some'       => PHP_DS . 'foo' . PHP_DS,
+            'bar-some-other' => PHP_DS . 'bar' . PHP_DS,
+            'baz/example'    => PHP_DS . 'baz' . PHP_DS,
         ];
         foreach ($map as $module => $path) {
             $resolver->registerModulePath($module, $path, false);
@@ -177,9 +177,9 @@ class ResolverTest extends \PHPUnit_Framework_TestCase
     public function invalidTemplateDataProvider()
     {
         return [
-            [__DIR__ . DIRECTORY_SEPARATOR . 'foo', 'foo', null],
-            [__DIR__ . DIRECTORY_SEPARATOR . 'foo', 'bar::foo', 'bar'],
-            [__DIR__ . DIRECTORY_SEPARATOR . 'foo', 'bar::foo', 'bar'],
+            [__DIR__ . PHP_DS . 'foo', 'foo', null],
+            [__DIR__ . PHP_DS . 'foo', 'bar::foo', 'bar'],
+            [__DIR__ . PHP_DS . 'foo', 'bar::foo', 'bar'],
         ];
     }
 

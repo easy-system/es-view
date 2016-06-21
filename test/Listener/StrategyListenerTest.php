@@ -24,13 +24,10 @@ class StrategyListenerTest extends \PHPUnit_Framework_TestCase
     {
         require_once 'FakeTemplateEngine.php';
 
-        $files = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'files';
+        $files = dirname(__DIR__) . PHP_DS . 'files' . PHP_DS;
 
-        $this->fooTemplate = $files . DIRECTORY_SEPARATOR
-                           . 'Foo' . DIRECTORY_SEPARATOR
-                           . 'view' . DIRECTORY_SEPARATOR
-                           . 'index' . DIRECTORY_SEPARATOR
-                           . 'index.phtml';
+        $this->fooTemplate = $files . 'Foo' . PHP_DS . 'view' . PHP_DS .
+                            'index' . PHP_DS . 'index.phtml';
     }
 
     public function testGetResolver()
