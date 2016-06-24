@@ -37,12 +37,24 @@ class ViewModelTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider variousTypesOfVariablesDataProvider
      */
-    public function testConstructor($variables, $arrayRepresentation)
+    public function testConstructorSetVariables($variables, $arrayRepresentation)
     {
         $model      = new ViewModel($variables);
         $reflection = new ReflectionProperty($model, 'container');
         $reflection->setAccessible(true);
         $this->assertSame($arrayRepresentation, $reflection->getValue($model));
+    }
+
+    public function testConstructorSetTemplate()
+    {
+        $model = new ViewModel(null, 'foo');
+        $this->assertSame('foo', $model->getTemplate());
+    }
+
+    public function testConstructorSetModule()
+    {
+        $model = new ViewModel(null, null, 'foo');
+        $this->assertSame('foo', $model->getModule());
     }
 
     public function testGetContentTypeReturnDefaultContentType()

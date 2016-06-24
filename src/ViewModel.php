@@ -66,12 +66,20 @@ class ViewModel extends AbstractContainer implements ViewModelInterface
     /**
      * Constructor.
      *
-     * @param array|\stdClass|\Traversable $variables Optional; the variables
+     * @param null|array|\stdClass|\Traversable $variables Optional; the variables
+     * @param null|string                       $template  Optional; the template
+     * @param null|string                       $module    Optional; the module
      */
-    public function __construct($variables = null)
+    public function __construct($variables = null, $template = null, $module = null)
     {
         if (null !== $variables) {
             $this->addVariables($variables);
+        }
+        if (null !== $template) {
+            $this->setTemplate($template);
+        }
+        if (null !== $module) {
+            $this->setModule($module);
         }
     }
 
